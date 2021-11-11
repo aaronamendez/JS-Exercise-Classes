@@ -65,7 +65,9 @@ class Person {
     - All instances built with Car:
         + should initialize with a `tank` at 0
         + should initialize with an `odometer` at 0
+        //
     - Give cars the ability to get fueled with a `.fill(gallons)` method. Add the gallons to `tank`.
+    //
     - Give cars ability to `.drive(distance)`. The distance driven:
         + Should cause the `odometer` to go up.
         + Should cause the the `tank` to go down taking `milesPerGallon` into account.
@@ -73,7 +75,29 @@ class Person {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-class Car {}
+class Car {
+	constructor(model, milesPerGallon) {
+		this.model = model;
+		this.milesPerGallon = milesPerGallon;
+
+		this.tank = 0;
+		this.odometer = 0;
+	}
+	fill(gallons) {
+		this.tank += gallons;
+	}
+	drive(distance) {
+		const drivableMiles = (this.tank *= this.milesPerGallon);
+		if (distance <= drivableMiles) {
+			this.odometer = this.odometer + distance;
+			this.tank = distance / this.milesPerGallon;
+		} else {
+			this.odometer += drivableMiles;
+			this.tank = 0;
+			return `I ran out of fuel at ${this.odometer} miles!`;
+		}
+	}
+}
 
 /*
   TASK 3
@@ -87,7 +111,16 @@ class Car {}
         + Speaking should return a phrase `Hello my name is {name}, I am from {location}`.
         + {name} and {location} of course come from the instance's own properties.
 */
-class Lambdasian {}
+class Lambdasian {
+	constructor(obj) {
+		this.name = obj.name;
+		this.age = obj.age;
+		this.location = obj.location;
+	}
+	speak() {
+		return `Hello my name is ${this.name}, I am from ${this.location}`;
+	}
+}
 
 /*
   TASK 4
